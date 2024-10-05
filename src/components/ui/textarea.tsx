@@ -1,7 +1,6 @@
 // src/components/ui/textarea.tsx
 
 import * as React from 'react';
-import { cn } from '@/lib/utils'; // Ensure this utility is used or remove if unnecessary
 
 type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
