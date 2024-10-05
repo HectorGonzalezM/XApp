@@ -159,10 +159,27 @@ export default async function Home({
 }) {
   const batches = await getBatches();
 
-  // Get the selected batch numbers from query params or default to the first batch
-  const selectedBatchNumbers = searchParams.batches
-    ? searchParams.batches.split(',').map((num) => parseInt(num, 10)).filter((num) => !isNaN(num))
-    : [1];
+  // Updated logic to handle different types of searchParams.batches
+  let selectedBatchNumbers: number[] = [];
+
+  if (searchParams.batches) {
+    if (Array.isArray(searchParams.batches)) {
+      // If batches is an array of strings
+      selectedBatchNumbers = searchParams.batches
+        .flatMap((batchStr) => batchStr.split(','))
+        .map((num) => parseInt(num, 10))
+        .filter((num) => !isNaN(num));
+    } else {
+      // If batches is a single string
+      selectedBatchNumbers = searchParams.batches
+        .split(',')
+        .map((num) => parseInt(num, 10))
+        .filter((num) => !isNaN(num));
+    }
+  } else {
+    // Default to batch number 1 if no batches are specified
+    selectedBatchNumbers = [1];
+  }
 
   const tweets = await getTweets(selectedBatchNumbers);
 
@@ -183,4 +200,3 @@ export default async function Home({
     </main>
   );
 }
-
