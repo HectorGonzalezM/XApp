@@ -58,6 +58,10 @@ export default function AskDataModalContent({
 
       const data = await response.json();
       setResponseText(data.text);
+
+      // Optionally close the modal after successful response
+      // Uncomment the line below if you want to auto-close
+      // onClose();
     } catch (error) {
       console.error('Error:', error);
       setResponseText('An error occurred while fetching the response.');
@@ -86,9 +90,27 @@ export default function AskDataModalContent({
     }
   }, [responseText]);
 
+  // Handle closing the modal
+  const handleClose = () => {
+    onClose();
+  };
+
   return (
     <div className="flex flex-col h-full">
-      <h2 className="text-xl font-bold mb-4">Ask Data</h2>
+      {/* Modal Header */}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold">Ask Data</h2>
+        <button
+          onClick={handleClose}
+          className="text-gray-500 hover:text-gray-700 focus:outline-none"
+          aria-label="Close Modal"
+        >
+          {/* You can replace this with an icon if desired */}
+          &times;
+        </button>
+      </div>
+
+      {/* Response Container */}
       <div
         className="flex-1 overflow-auto mb-4 p-4 bg-gray-50 rounded-lg"
         ref={messageContainerRef}
@@ -101,7 +123,10 @@ export default function AskDataModalContent({
           <p className="text-gray-500">Your response will appear here.</p>
         )}
       </div>
+
+      {/* Action Buttons and Input */}
       <div className="mt-auto">
+        {/* Predefined Prompt Buttons */}
         <div className="flex space-x-2 mb-2">
           <Button variant="secondary" onClick={() => handlePredefinedPrompt('summarize')}>
             Summarize Tweets
@@ -110,6 +135,8 @@ export default function AskDataModalContent({
             Suggest Tweets
           </Button>
         </div>
+
+        {/* User Input and Submit Button */}
         <div className="flex items-center">
           <Textarea
             ref={textareaRef}
@@ -137,4 +164,3 @@ export default function AskDataModalContent({
     </div>
   );
 }
-
