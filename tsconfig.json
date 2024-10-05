@@ -14,8 +14,11 @@
     "isolatedModules": true, // Ensure each file is treated as a separate module
     "jsx": "preserve", // Preserve JSX syntax for further processing
     "incremental": true, // Enable incremental compilation
-    "allowSyntheticDefaultImports": true // Allow default imports from modules with no default export
-    // Removed duplicate 'moduleResolution' and unnecessary 'plugins' and 'paths'
+    "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
+    "baseUrl": ".", // Set the base directory for module resolution
+    "paths": { // Define path aliases
+      "@/*": ["src/*"]
+    }
   },
   "include": [
     "next-env.d.ts",
