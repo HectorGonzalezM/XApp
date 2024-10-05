@@ -2,7 +2,7 @@
 
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react'; // Removed 'useEffect' from imports
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
@@ -52,7 +52,7 @@ export default function TweetDisplayer({ initialTweets }: TweetDisplayerProps) {
 
   // Sorting function
   const sortTweets = (option: SortOption) => {
-    let sortedTweets = [...tweets];
+    const sortedTweets = [...tweets]; // Changed 'let' to 'const'
     switch (option) {
       case 'Latest':
         sortedTweets.sort((a, b) => new Date(b.DateTime).getTime() - new Date(a.DateTime).getTime());
@@ -96,7 +96,7 @@ export default function TweetDisplayer({ initialTweets }: TweetDisplayerProps) {
     const pageNumbers: (number | string)[] = [];
     const maxPageNumbersToShow = 5; // Maximum number of page buttons to show
     let startPage = Math.max(currentPage - 2, 1);
-    let endPage = Math.min(startPage + maxPageNumbersToShow - 1, totalPages);
+    const endPage = Math.min(startPage + maxPageNumbersToShow - 1, totalPages); // Changed 'let' to 'const'
 
     if (endPage - startPage < maxPageNumbersToShow - 1) {
       startPage = Math.max(endPage - maxPageNumbersToShow + 1, 1);
@@ -273,4 +273,3 @@ export default function TweetDisplayer({ initialTweets }: TweetDisplayerProps) {
     </div>
   );
 }
-
