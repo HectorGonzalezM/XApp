@@ -155,7 +155,7 @@ async function getTweets(batchNumbers: number[]): Promise<any[]> {
 export default async function Home({
   searchParams,
 }: {
-  searchParams: { [key: string]: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const batches = await getBatches();
 
