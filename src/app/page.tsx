@@ -87,7 +87,7 @@ async function getBatches(): Promise<Batch[]> {
   return batches;
 }
 
-async function getTweets(batchNumbers: number[]): Promise<any[]> {
+async function getTweets(batchNumbers: number[]): Promise<Tweet[]> { // Changed Promise<any[]> to Promise<Tweet[]>
   const BATCH_SIZE = 100;
   const skipValues = batchNumbers.map((batchNumber) => (batchNumber - 1) * BATCH_SIZE);
 
@@ -117,7 +117,7 @@ async function getTweets(batchNumbers: number[]): Promise<any[]> {
     // Process tweets as before
     const sentiment = new Sentiment();
 
-    const mappedTweets = tweets.map((tweet) => {
+    const mappedTweets: Tweet[] = tweets.map((tweet) => {
       const tweetContent = tweet.tweet_content || '';
       const sentimentResult = sentiment.analyze(tweetContent);
       let sentimentLabel = 'Neutral';
